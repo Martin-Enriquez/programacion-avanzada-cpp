@@ -25,6 +25,7 @@
 // Ejecutar:  ./bin/ejercicio1
 
 #include <iostream>
+using namespace std;
 
 class Rectangulo {
 private:
@@ -38,11 +39,24 @@ public:
         // "Aviso: base invalida, se uso 1.0 por defecto"
 
         // TODO: haz lo mismo con setAltura(alturaInicial) y altura.
+        base=baseInicial;
+        altura=alturaInicial;
+        setBase(baseInicial);
+        if(!setBase(baseInicial)){
+            base=1.0;
+            std::cout<<"AVISO: BASE INVÁLIDA, SE ASIGNÓ 1.0 POR DEFECTO"<<std::endl;
+        }
+        setAltura(alturaInicial);
+        if(!setAltura(alturaInicial)){
+            altura=1.0;
+            std::cout<<"AVISO: ALTURA INVÁLIDA, SE ASIGNÓ 1.0 POR DEFECTO"<<std::endl;
+        }
     }
 
     ~Rectangulo() {
         // TODO: imprime "Rectangulo destruido: base=" seguido de base,
         // ", altura=" y altura.
+        cout<<"RECTANGULO DESTRUIDO: base= "<<base<<", altura="<<altura<<endl;
     }
 
     double getBase() { return base; }
