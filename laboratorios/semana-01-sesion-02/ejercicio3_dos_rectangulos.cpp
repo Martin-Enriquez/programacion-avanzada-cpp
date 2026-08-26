@@ -3,7 +3,7 @@
 // Parte A: un "sistema" de dos rectangulos
 // armado con funciones sueltas y 4 variables independientes. Tiene un bug.
 //
-// TODO (prediccion, escribe tu respuesta como comentario justo aqui):
+// TODO (escribe tu respuesta como comentario justo aqui):
 // En que linea esta el bug, y que deberia decir en su lugar?
 /*El error está en la línea 41 y 42 respectivamente. Se está pasando como argumento
  la altura del rect1 a la "funcion" que corresponde al rect2*/
