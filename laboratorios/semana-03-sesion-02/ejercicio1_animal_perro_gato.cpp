@@ -18,6 +18,7 @@
 // Ejecutar:  ./bin/ejercicio1
 
 #include <iostream>
+using namespace std;
 
 class Animal {
 private:
@@ -33,11 +34,15 @@ public:
     bool setEdad(double nuevaEdad) {
         // TODO: si nuevaEdad es negativa, devuelve false sin modificar edad.
         // Si no, asigna edad = nuevaEdad y devuelve true.
-        return false;
+        if(nuevaEdad<0)return false;
+        edad=nuevaEdad;
+        return true;
     }
 
     bool setPesoKg(double nuevoPeso) {
         // TODO: mismo patron que setEdad(), pero para pesoKg (debe ser mayor que 0).
+        if(nuevoPeso<=0)return false;
+        pesoKg=nuevoPeso;
         return false;
     }
 
@@ -46,6 +51,7 @@ public:
 
     void describir() {
         // TODO: imprime "Animal de " + edad + " anios, " + pesoKg + " kg"
+        cout<<"Animal de "<<edad<<" anios y "<<pesoKg<<"kg."<<endl;
     }
 };
 
