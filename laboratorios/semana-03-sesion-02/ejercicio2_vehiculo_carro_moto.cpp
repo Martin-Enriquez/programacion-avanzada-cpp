@@ -50,7 +50,7 @@ public:
     void describir() {
         // TODO: imprime "Vehiculo a " + velocidadKmh + " km/h, " +
         // kilometraje + " km recorridos"
-        cout<<"Vehiculo a "<<velocidadKmh<<" km/h con "<<kilometraje<<" km recorridos."<<endl;
+        cout<<"Vehiculo a "<<velocidadKmh<<" km/h, "<<kilometraje<<" km recorridos."<<endl;
     }
 };
 

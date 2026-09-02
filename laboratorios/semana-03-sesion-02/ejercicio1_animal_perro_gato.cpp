@@ -51,7 +51,7 @@ public:
 
     void describir() {
         // TODO: imprime "Animal de " + edad + " anios, " + pesoKg + " kg"
-        cout<<"Animal de "<<edad<<" anios y "<<pesoKg<<"kg."<<endl;
+        cout<<"Animal de "<<edad<<" anios, "<<pesoKg<<"kg."<<endl;
     }
 };
 
