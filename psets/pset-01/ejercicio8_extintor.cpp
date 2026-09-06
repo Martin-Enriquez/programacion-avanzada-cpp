@@ -26,6 +26,11 @@ public:
         // TODO: si presionInicial es invalida (<= 0 o > 200), imprime el
         // aviso y asigna presionPSI = 100.0. Si no, asigna presionPSI =
         // presionInicial.
+        if(presionInicial<=0 || presionInicial > 200){
+            std::cout<<"Presion invalida se asigna, presion segura por defecto"<<std::endl;
+            presionInicial=100;
+        }
+        presionPSI=presionInicial;
     }
 
     double getPresionPSI() {

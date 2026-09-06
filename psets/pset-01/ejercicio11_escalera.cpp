@@ -18,3 +18,34 @@
 //
 // Compilar:  g++ -std=c++20 -Wall -Wextra -g ejercicio11_escalera.cpp -o bin/ejercicio11
 // Ejecutar:  ./bin/ejercicio11
+#include <iostream>
+using namespace std;
+struct Escalera
+{
+    int numeroPeldanos;
+    
+    bool esSegura(){
+        if(numeroPeldanos<=12)return true;
+        return false;
+    }
+};
+
+
+int main(){
+    Escalera e1;
+    e1.numeroPeldanos=10;
+    Escalera e2;
+    e2.numeroPeldanos=15;
+
+    cout<<"Escalera de "<<e1.numeroPeldanos<<" peldanos:";
+    if(e1.esSegura()){
+        cout<<" segura"<<endl;
+    }else{cout<<" no segura"<<endl;}
+
+    cout<<"Escalera de "<<e2.numeroPeldanos<<" peldanos:";
+    if(e2.esSegura()){
+        cout<<" segura"<<endl;
+    }else{cout<<" no segura"<<endl;}
+
+    return 0;
+}
