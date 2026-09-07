@@ -32,7 +32,7 @@
 //    s3.setHorario(14.0, 16.0) (válido) e imprimir "Horario 3
 //    aceptado: " seguido del resultado.
 // 4. Imprimir exactamente "--- fin del bloque ---".
-//
+// 
 // Salida esperada, exactamente:
 // Horario 1 aceptado: true
 // Descanso invalido, se asignan 10 minutos por defecto
@@ -45,3 +45,48 @@
 //
 // Compilar:  g++ -std=c++20 -Wall -Wextra -g ejercicio15_sesion_estudio.cpp -o bin/ejercicio15
 // Ejecutar:  ./bin/ejercicio15
+
+#include <iostream>
+using namespace std;
+class SesionEstudio{
+    private:
+        double horaInicio, horaFin;
+        int minutosDescansoAsignado;
+    public:
+        SesionEstudio(int minutosDescanso){
+            if(minutosDescanso<=0 || minutosDescanso>60){
+                cout<<"Descanso invalido, se asignan 10 minutos por defecto"<<endl;
+                minutosDescansoAsignado=10;
+            }else{minutosDescansoAsignado=minutosDescanso;}
+        }
+        bool setHorario(double inicio,double fin){
+            if(inicio<=0 || fin>24 || inicio>fin){
+                return false;
+            }else return true;
+        }
+        int getMinutosDescanso(){
+            return minutosDescansoAsignado;
+        }
+        ~SesionEstudio(){
+            cout<<"Sesion de estudio finalizada"<<endl;
+        }
+};
+
+int main(){
+    SesionEstudio s1{20};
+    s1.setHorario(8.0, 10.0);
+    bool ok1=s1.setHorario(8.0, 10.0);
+    cout<<"Horario 1 aceptado: "<<boolalpha<<ok1<<endl;
+
+    SesionEstudio s2{90};
+    s2.setHorario(23.0, 22.0);
+    bool ok2=s2.setHorario(8.0, 10.0);
+    cout<<"Horario 2 aceptado: "<<boolalpha<<ok2<<endl;
+
+    SesionEstudio s3{15};
+    s3.setHorario(8.0, 10.0);
+    bool ok3=s3.setHorario(8.0, 10.0);
+    cout<<"Horario 3 aceptado: "<<boolalpha<<ok3<<endl;
+
+    cout<<"--- fin del bloque ---"<<endl;
+}
