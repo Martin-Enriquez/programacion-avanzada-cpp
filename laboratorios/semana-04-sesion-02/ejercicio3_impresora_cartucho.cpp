@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 class Dispositivo {
     private:
@@ -31,10 +32,37 @@ class Dispositivo {
 // - void consumir(int porcentaje): reduce nivelTintaPorc en ese porcentaje,
 //   sin bajar de 0
 // - int getNivelTintaPorc(): devuelve el nivel actual
+class Cartucho{
+    private:
+        int nivelTintaPorc;
+    public:
+        Cartucho(){
+            nivelTintaPorc=100;
+        }
+        bool tieneTinta(){
+            return nivelTintaPorc>0;
+        }
+        void consumir(int porcentaje){
+            int reducirPorcentaje;
+            nivelTintaPorc-=porcentaje;
+            if(nivelTintaPorc<0){
+                nivelTintaPorc=0;
+            }
+        }
+        int getNivelTintaPorc(){
+            return nivelTintaPorc;
+        }
+
+
+};
 
 // Un companero propone "class Impresora: public virtual Dispositivo, public Cartucho".
 // Antes de escribir el codigo, responde en el README por que ese diseno
 // es forzado, igual que Carro heredando de Motor en el Ejercicio 1.
+
+/* NO ES ADECUADO POR QUE IMPRESORA, "NO ES UN CARTUCHO", SI NO "TIENE UN CARTUCHO
+ POR LO QUE SERIA ADECUADO IMPLEMENTAR COMPOSICION, PARA USAR LOS METODOS ESPECIFICOS
+ DE CARTUCHO"*/
 
 // TODO: Impresora hereda con virtual de Dispositivo (igual que la sesion
 // pasada) y tiene un atributo privado Cartucho. Agrega:
@@ -46,17 +74,32 @@ class Dispositivo {
 class Impresora: public virtual Dispositivo {
     private:
         int paginasPorMinuto;
+        //int paginas;
+        Cartucho cartucho;
     public:
         Impresora() {
             paginasPorMinuto = 0;
+            //paginas=100;
         }
 
         bool setPaginasPorMinuto(int nuevasPpm) {
             if (nuevasPpm <= 0) { return false; }
             paginasPorMinuto = nuevasPpm;
             return true;
+        } 
+        bool imprimir(int paginas){
+            if(!cartucho.tieneTinta()){
+                cout<<"Sin tinta, no se puede imprimir"<<endl;
+                return false;
+            }else{
+                cout<<"Imprimiendo "<<paginas<<" paginas a "<<paginasPorMinuto<<" paginas por minuto"<<endl;
+                cartucho.consumir((2*paginas));
+                return true;
+            }
         }
-
+        int getNivelTintaPorc(){
+           return cartucho.getNivelTintaPorc();
+        }
         // TODO
 };
 
