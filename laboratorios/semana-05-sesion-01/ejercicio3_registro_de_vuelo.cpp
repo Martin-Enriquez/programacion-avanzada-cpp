@@ -1,5 +1,5 @@
 #include <iostream>
-
+using namespace std;
 // TODO: define aqui la clase RegistroDeVuelo, con:
 // - un puntero privado double* alturas y un int capacidad.
 // - un constructor RegistroDeVuelo(int nuevaCapacidad) que reserve
@@ -11,6 +11,28 @@
 //   e imprima "Registro de vuelo destruido, memoria liberada", para atar
 //   la vida de esa memoria a la vida del objeto (RAII).
 class RegistroDeVuelo {
+    private: 
+        double *alturas;
+        int capacidad;
+    public: 
+        RegistroDeVuelo(int nuevaCapacidad){
+            capacidad = nuevaCapacidad;
+            alturas = new double[capacidad];
+            cout<<"Registro de vuelo creado para "<<capacidad<<" lecturas."<<endl;
+
+        }
+
+        void guardarAltura(int indice, double valor){
+            alturas[indice]= valor;
+        }
+        double getAltura(int indice){
+            return *alturas;
+        }
+
+        ~RegistroDeVuelo(){
+            delete[] alturas;
+            cout<<"Resgistro de vuelo destruido, memoria liberada."<<endl;
+        }
 };
 
 bool procesarVuelo(int capacidad, double alturaMinima) {
