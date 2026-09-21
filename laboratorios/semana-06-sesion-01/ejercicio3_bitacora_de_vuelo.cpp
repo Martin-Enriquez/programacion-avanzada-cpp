@@ -1,6 +1,6 @@
 #include <iostream>
 #include <utility>
-
+using namespace std;
 // TODO: completa BitacoraDeVuelo con el mismo patron de RegistroDeVuelo
 // (Ejercicios 1 y 2), aplicado a un arreglo dinamico de consumos de
 // combustible por tramo, en vez de alturas:
@@ -20,6 +20,48 @@
 // - Destructor ~BitacoraDeVuelo(): libera con delete[] e imprime
 //   "Destruyendo bitacora (capacidad <capacidad>)".
 class BitacoraDeVuelo {
+    private:
+        double* consumos;
+        int capacidad;
+    public:
+        BitacoraDeVuelo(int nuevaCapacidad){
+            capacidad=nuevaCapacidad;
+            consumos = new double[nuevaCapacidad];
+            cout<<"Bitacora creada para "<<capacidad<<" tramos"<<endl;
+        }
+        void guardarConsumo(int indice, double valor){
+            consumos[indice]=valor;
+        }
+        double getConsumo(int indice){
+            if(consumos == nullptr){
+                cout<<"Bitacora vacia (fue movida)"<<endl;
+                return 0.0;
+            }
+            return consumos[indice];
+
+        }
+        BitacoraDeVuelo(BitacoraDeVuelo&& otra){
+            consumos=otra.consumos;
+            capacidad=otra.capacidad;
+
+            otra.consumos=nullptr;
+            otra.capacidad=0;
+        }
+        BitacoraDeVuelo& operator=(BitacoraDeVuelo&& otra){
+            if(this!=&otra){
+                delete[] consumos;
+                consumos=otra.consumos;
+                capacidad=otra.capacidad;
+
+                otra.consumos=nullptr;
+                otra.capacidad=0.0;
+            }
+            return *this;
+        }
+        ~BitacoraDeVuelo(){
+            delete[] consumos;
+            cout<<"Destruyendo bitacora (capacidad "<<capacidad<<" )"<<endl;
+        }
 };
 
 int main() {
