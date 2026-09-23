@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <utility>
+using namespace std;
 
 // TODO: completa RegistroTemperaturas reemplazando la memoria dinamica
 // manual por un smart pointer:
@@ -12,6 +13,21 @@
 // - void guardar(int indice, double valor) y double obtener(int indice).
 // - Sin destructor: unique_ptr ya libera la memoria solo.
 class RegistroTemperaturas {
+    private:
+        unique_ptr<double[]>lecturas;
+        int capacidad;
+    public:
+        RegistroTemperaturas(int nuevaCapacidad){
+            capacidad=nuevaCapacidad;
+            lecturas = make_unique<double[]>(capacidad);
+            cout<<"Registro de temperaturas creado para "<<capacidad<<" lecturas"<<endl;
+        }
+        void guardar(int indice, double valor){
+            lecturas[indice]=valor;
+        }
+        double obtener(int indice){
+            return lecturas[indice];
+        }
 };
 
 // TODO: completa SensorRemoto:
@@ -25,6 +41,22 @@ class RegistroTemperaturas {
 //   <registro->obtener(indice)> grados".
 // - Destructor ~SensorRemoto(): imprime "Sensor <idSensor> desconectado".
 class SensorRemoto {
+    private:
+        shared_ptr<RegistroTemperaturas> registro;
+        int idSensor;
+    public:
+        SensorRemoto(shared_ptr<RegistroTemperaturas>unRegistro, int unId){
+            registro=move(unRegistro);
+            idSensor=unId;
+            cout<<"Sensor "<<idSensor<<" conectado. use_count= "<<registro.use_count()<<endl;
+        }
+        void reportar(int indice){
+            cout<<"Sensor "<<idSensor<<" lee "<<registro->obtener(indice)<<" grados"<<endl;
+
+        }
+        ~SensorRemoto(){
+            cout<<"Sensor "<<idSensor<<" desconectado"<<endl;
+        }
 };
 
 int main() {
