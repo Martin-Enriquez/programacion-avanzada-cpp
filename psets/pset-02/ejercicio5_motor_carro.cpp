@@ -16,10 +16,15 @@ private:
     double caballosFuerza;
 public:
     bool setCaballosFuerza(double c) {
+        if(c>=0&&c<=1500){
+            caballosFuerza=c;
+            return true;
+        }
         // TODO: valida que c sea mayor a 0 y menor o igual a 1500.
         return false;
     }
     void mostrarPotencia() {
+        std::cout<<"Motor con "<<caballosFuerza<<" caballos de fuerza"<<std::endl;
         // TODO: imprime "Motor con " + caballosFuerza + " caballos de fuerza" y un salto de linea.
     }
 };
@@ -30,18 +35,24 @@ private:
     int colorCodigo;
 public:
     bool configurarMotor(double c) {
+        return motor.setCaballosFuerza(c);
         // TODO: delega en motor.setCaballosFuerza(c) y devuelve su resultado.
-        return false;
     }
     bool setColorCodigo(int c) {
+        if(c>=0 and c<=9){
+            colorCodigo=c;
+            return true;
+        }
         // TODO: valida que c este entre 0 y 9 (ambos incluidos).
         return false;
     }
     int getColorCodigo() {
+        return colorCodigo;
         // TODO: devuelve colorCodigo.
         return 0;
     }
     void encender() {
+        motor.mostrarPotencia();
         // TODO: delega en motor.mostrarPotencia().
     }
 };
