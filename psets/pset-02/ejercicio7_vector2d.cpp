@@ -16,17 +16,22 @@ private:
     double y;
 public:
     Vector2D(double xInicial, double yInicial) {
+        x=xInicial;
+        y=yInicial;
         // TODO: asigna x y y por asignacion directa.
     }
     double getX() {
+        return x;
         // TODO: devuelve x.
         return 0;
     }
     double getY() {
+        return y;
         // TODO: devuelve y.
         return 0;
     }
     Vector2D operator+(Vector2D otro) {
+        return Vector2D(x+otro.getX(),y+otro.getY());
         // TODO: devuelve un Vector2D nuevo con la suma de x y de y de ambos vectores.
         return Vector2D(0, 0);
     }

@@ -24,3 +24,48 @@
 //
 // Salida esperada:
 // Total: 5000
+
+#include <iostream>
+using namespace std;
+
+class Empleado{
+    private:
+        double salarioBase;
+    public:
+        /*Empleado(double nuevoSalario){
+            salarioBase=nuevoSalario;
+        }*/
+        bool setSalarioBase(double s){
+            if(s>0 && s<=50000){
+                salarioBase=s;
+                return true;
+            }
+            return false;
+        }
+        double getSalarioBase(){
+            return salarioBase;
+        }
+};
+class Gerente: public Empleado{
+    private:
+        double bono;
+    public:
+        bool setBono(double b){
+            if(b>0 && b<=10000){
+                bono=b;
+                return true;
+            }return false;
+        }
+        double getBono(){
+            return bono;
+        }
+};
+
+int main(){
+    Gerente gerente;
+    gerente.setSalarioBase(4200);
+    gerente.setBono(800);
+
+    cout<<"Total: "<<gerente.getBono()+gerente.getSalarioBase()<<endl;
+
+}

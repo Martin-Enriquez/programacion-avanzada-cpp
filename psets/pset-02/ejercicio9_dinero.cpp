@@ -18,15 +18,18 @@ private:
     int centavos;
 public:
     Dinero(int centavosIniciales) {
+        centavos=centavosIniciales;
         // TODO: asigna centavos por asignacion directa.
     }
     int getCentavos() {
+        return centavos;
         // TODO: devuelve centavos.
         return 0;
     }
     Dinero operator+(Dinero otro) {
+        //centavos+=otro.getCentavos();
         // TODO: devuelve un Dinero nuevo con la suma de los centavos de ambos.
-        return Dinero(0);
+        return Dinero(centavos+otro.getCentavos());
     }
 };
 
@@ -35,6 +38,12 @@ std::ostream& operator<<(std::ostream& os, Dinero d) {
     // y los centavos restantes (centavos % 100) con dos digitos: si es menor a
     // 10 antepon un "0" (por ejemplo 275 centavos se imprime como "$2.75").
     // Devuelve os.
+    int centavosRestantes=d.getCentavos()%100;
+    os<<"$"<<d.getCentavos()/100<<".";
+    if(centavosRestantes<10){
+        os<<0;
+    }
+    os<<d.getCentavos()%100;
     return os;
 }
 
