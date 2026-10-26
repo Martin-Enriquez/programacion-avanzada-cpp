@@ -21,6 +21,56 @@
 // - int getUsadas() e int getCapacidad().
 // - Sin destructor.
 
+template<typename T>
+class Historial {
+    private:
+        std::unique_ptr<T[]> valores;
+        int capacidad;
+        int usadas;
+
+    public:
+        Historial(int capacidadInicial)
+            : valores(std::make_unique<T[]>(capacidadInicial)),
+              capacidad(capacidadInicial),
+              usadas(0) {
+        }
+
+        bool agregar(T valor) {
+            if (usadas >= capacidad) {
+                return false;
+            }
+
+            valores[usadas] = valor;
+            usadas++;
+
+            return true;
+        }
+
+        T obtener(int indice) {
+            if (indice < 0 || indice >= usadas) {
+                throw std::out_of_range("Indice fuera del historial");
+            }
+
+            return valores[indice];
+        }
+
+        T ultimo() {
+            if (usadas == 0) {
+                throw std::out_of_range("El historial esta vacio");
+            }
+
+            return valores[usadas - 1];
+        }
+
+        int getUsadas() {
+            return usadas;
+        }
+
+        int getCapacidad() {
+            return capacidad;
+        }
+};
+
 int main() {
     Historial<int> pasos(5);
     pasos.agregar(4200);
