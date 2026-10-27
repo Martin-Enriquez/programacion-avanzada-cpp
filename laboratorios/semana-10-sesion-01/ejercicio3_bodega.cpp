@@ -1,4 +1,7 @@
 #include <iostream>
+#include <map>
+#include <vector>
+#include <set>
 
 // Salida esperada:
 // Stock: 120=2 210=5 305=10
@@ -22,6 +25,7 @@
 // Tu decides que contenedor de la STL usa cada atributo: elige segun
 // como se consulta y como se modifica cada dato, e incluye arriba los
 // encabezados que necesites.
+
 //
 // Atributos privados:
 // - El stock de cada codigo.
@@ -51,6 +55,83 @@
 // - void imprimirAgotados(): "Agotados alguna vez:" y cada codigo
 //   precedido de un espacio. Termina la linea.
 
+class Bodega{
+    private:
+        std::map<int, int> stock;
+        std::vector<int> historial;
+        std::set<int> agotados;
+    public:
+        void ingresar(int codigo, int cantidad) {
+            stock[codigo] += cantidad;
+        }
+
+        bool retirar(int codigo, int cantidad) {
+            auto it = stock.find(codigo);
+
+            if (it == stock.end() || it->second < cantidad) {
+                return false;
+            }
+
+            it->second -= cantidad;
+
+            historial.push_back(codigo);
+
+            if (it->second == 0) {
+                agotados.insert(codigo);
+            }
+
+            return true;
+        }
+        int stockDe(int codigo) {
+            auto it = stock.find(codigo);
+
+            if (it == stock.end()) {
+                return 0;
+            }
+
+            return it->second;
+        }
+
+        int cantidadDeProductos() {
+            return stock.size();
+        }
+
+        int retiroNumero(int posicion) {
+            return historial[posicion];
+        }
+
+        void imprimirStock() {
+            std::cout << "Stock:";
+
+            for (const auto& producto : stock) {
+                std::cout << " " << producto.first
+                          << "=" << producto.second;
+            }
+
+            std::cout << std::endl;
+        }
+
+        void imprimirRetiros() {
+            std::cout << "Retiros:";
+
+            for (int codigo : historial) {
+                std::cout << " " << codigo;
+            }
+
+            std::cout << std::endl;
+        }
+
+        void imprimirAgotados() {
+            std::cout << "Agotados alguna vez:";
+
+            for (int codigo : agotados) {
+                std::cout << " " << codigo;
+            }
+
+            std::cout << std::endl;
+        }
+};
+
 void informarRetiro(int codigo, int cantidad, bool aceptado) {
     std::cout << "Retirar " << cantidad << " de " << codigo << ": ";
     if (aceptado) {
@@ -59,6 +140,7 @@ void informarRetiro(int codigo, int cantidad, bool aceptado) {
         std::cout << "rechazado" << std::endl;
     }
 }
+
 
 int main() {
     Bodega bodega;
