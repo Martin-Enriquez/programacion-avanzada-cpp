@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 
+//LA VERSION QUE FUNCIONA:
 int tarifaEnCentavos(int minutos) {
     if (minutos < 0) {
         throw std::invalid_argument("minutos negativos");
