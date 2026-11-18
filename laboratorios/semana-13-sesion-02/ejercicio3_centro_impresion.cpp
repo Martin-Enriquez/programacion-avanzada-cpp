@@ -43,6 +43,73 @@
 // Despues de cerrar, se acepta un trabajo: 0
 
 // TODO: escribe aqui la clase CentroDeImpresion.
+class CentroDeImpresion {
+private:
+    std::map<int, int> paginasEstudiante;
+    std::mutex mtx;
+
+    int aceptados = 0;
+    int rechazados = 0;
+    int totalPaginas = 0;
+    bool cerrado = false;
+
+public:
+    bool enviar(int estudiante, int paginas) {
+        std::lock_guard<std::mutex> lock(mtx);
+
+        if (cerrado || paginas <= 0) {
+            return false;
+        }
+
+        if (paginasEstudiante[estudiante] + paginas > 100) {
+            rechazados++;
+            return false;
+        }
+
+        paginasEstudiante[estudiante] += paginas;
+        aceptados++;
+        totalPaginas += paginas;
+
+        return true;
+    }
+
+    void cerrar() {
+        std::lock_guard<std::mutex> lock(mtx);
+        cerrado = true;
+    }
+
+    bool estaCerrado() {
+        std::lock_guard<std::mutex> lock(mtx);
+        return cerrado;
+    }
+
+    int trabajosAceptados() {
+        std::lock_guard<std::mutex> lock(mtx);
+        return aceptados;
+    }
+
+    int rechazadosPorCuota() {
+        std::lock_guard<std::mutex> lock(mtx);
+        return rechazados;
+    }
+
+    int paginasTotales() {
+        std::lock_guard<std::mutex> lock(mtx);
+        return totalPaginas;
+    }
+
+    int paginasDe(int estudiante) {
+        std::lock_guard<std::mutex> lock(mtx);
+
+        auto it = paginasEstudiante.find(estudiante);
+
+        if (it == paginasEstudiante.end()) {
+            return 0;
+        }
+
+        return it->second;
+    }
+};
 
 void computadora(CentroDeImpresion* centro) {
     for (int estudiante = 1; estudiante <= 50; estudiante++) {
